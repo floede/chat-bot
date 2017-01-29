@@ -1407,6 +1407,6 @@ n&&e.updateNativeStyleProperties(document.documentElement,this.customStyle)}};re
     </app-drawer-layout>
   </template>
   
-  <script>Polymer({is:"my-app",properties:{page:{type:String,reflectToAttribute:!0,observer:"_pageChanged"}},observers:["_routePageChanged(routeData.page)"],_routePageChanged:function(e){this.page=e||"view1"},_pageChanged:function(e){if("chat-bot"===e)var t=this.resolveUrl("index.html");else var t=this.resolveUrl("my-"+e+".html");this.importHref(t,null,this._showPage404,!0)},_showPage404:function(){this.page="view404"}});</script>
+  <script>Polymer({is:"my-app",properties:{page:{type:String,reflectToAttribute:!0,observer:"_pageChanged"}},observers:["_routePageChanged(routeData.page)"],_routePageChanged:function(e){this.page=e||"view1"},_pageChanged:function(e){if("chat-bot"===e)var t=this.resolveUrl("/index.html");else var t=this.resolveUrl("my-"+e+".html");this.importHref(t,null,this._showPage404,!0)},_showPage404:function(){this.page="view404"}});</script>
 </dom-module>
 </body></html>
