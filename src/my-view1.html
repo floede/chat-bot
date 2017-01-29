@@ -20,20 +20,59 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         padding: 10px;
       }
+      .answer {
+        background: #fafafa;
+      }
     </style>
 
     <div class="card">
-      <paper-input label="What do you want to ask?"></paper-input>
+      <paper-input label="What do you want to ask?" on-change="valueChanged" id="question"></paper-input>
       </div>
       <div class="card">
-        <p class="question">Q: What is this?</p>
-        <p class="answer">A: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem architecto optio iure eius provident? Porro blanditiis alias corporis, mollitia cupiditate cum culpa nobis officiis, officia ut, ducimus dicta numquam velit!</p>
+        <template is="dom-repeat" items="[[questions]]" on-change="elmCreated">
+          <div class="qa">
+            <p class="question">Q: <span>{{item.question}}</span></p>
+            <p class="answer">A: <span>{{item.answer}}</span></p>
+          </div>
+        </template>
       </div>
   </template>
 
   <script>
     Polymer({
       is: 'my-view1',
+      ready: function() {
+        this.questions = [];
+        this.init();
+      },
+      valueChanged: function() {
+        this.addAnswer(this.$.question.value);
+        this.$.question.value = "";
+      },
+      addAnswer(answer) {
+        this.unshift('questions', {question: answer, answer: actual_JSON[Math.floor(Math.random() * 99)].quote})
+      },
+      loadJSON(callback) {   
+        var xobj = new XMLHttpRequest();
+        xobj.overrideMimeType("application/json");
+        xobj.open('GET', 'json/answers.json', true); // Replace 'my_data' with the path to your file
+        xobj.onreadystatechange = function () {
+          if (xobj.readyState == 4 && xobj.status == "200") {
+            // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
+            callback(xobj.responseText);
+          }
+        };
+        xobj.send(null);  
+      },
+      init(){
+        this.loadJSON(function(response) {
+          // Parse JSON string into object
+            this.actual_JSON = JSON.parse(response);
+        });
+      },
+      elmCreated () {
+        console.log("TEST CREATED");
+      }      
     });
   </script>
 </dom-module>
