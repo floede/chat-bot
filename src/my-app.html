@@ -128,7 +128,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       _pageChanged: function(page) {
         // Load page import on demand. Show 404 page if fails
-        var resolvedPageUrl = this.resolveUrl('my-' + page + '.html');
+        if (page === "chat-bot") {
+          var resolvedPageUrl = this.resolveUrl('index.html');  
+        } else {
+          var resolvedPageUrl = this.resolveUrl('my-' + page + '.html');
+        }
         this.importHref(resolvedPageUrl, null, this._showPage404, true);
       },
 
