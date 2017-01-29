@@ -10,6 +10,6 @@
   "scripts": {
     "lint": "eslint . --ext js,html --ignore-path .gitignore",
     "test": "npm run lint && polymer test",
-    "copy": "cpx build/bundled docs"
+    "copy": "cpx 'build/bundled/**/*' docs"
   }
 }
